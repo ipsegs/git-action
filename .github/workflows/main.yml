@@ -9,7 +9,7 @@ on:
 env:
    REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
    REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
-   REPO_NAME: flask-hello-test
+   REPO_NAME: ${{secrets.REPO_NAME}}
    
 jobs:
    build-push-docker-image:
