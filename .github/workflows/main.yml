@@ -2,7 +2,7 @@ name: Flask-app-ci
 on:
  push:
    branches:
-      - main
+      - master
    tags:
       - "v*.*.*"
     
