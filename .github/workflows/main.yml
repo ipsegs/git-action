@@ -26,7 +26,7 @@ jobs:
               
          - name: Get id tag
            id: meta
-           run: echo "::set-output name=meta::$(echo ${GITHUB_REF#refs/heads/})-$(git rev-parse --short=7 HEAD)-$(git tag --points-at HEAD)"
+           run: echo "::set-output name=meta::$(echo ${GITHUB_REF#refs/heads/})-$(git rev-parse --short=7 HEAD)-${GITHUB_REF##*/}"
          
          - name: Docker build container
            run: docker build --file Dockerfile -t $REGISTRY_USER/$REPO_NAME:${{ steps.meta.outputs.meta }} .
