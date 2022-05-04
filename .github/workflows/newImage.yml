@@ -8,7 +8,7 @@ on:
     
 env:
    REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
-   REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+   REGISTRY_TOKEN: ${{ secrets.REGISTORY_TOKEN }}
    REPO_NAME: ${{secrets.REPO_NAME}}
    
 jobs:
