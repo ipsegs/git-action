@@ -24,10 +24,10 @@ jobs:
               
          - name: Get id tag
            id: meta
-           run: echo "::set-output name=meta::$(git branch --show-current)-$(git rev-parse --short=7 HEAD)-${GITHUB_REF##*/}"
+           run: echo "::set-output name=meta::$(git rev-parse --short=7 HEAD)-${GITHUB_REF##*/}"
          
          - name: Docker build container
-           run: docker build --file Dockerfile -t $REGISTRY_USER/$REPO_NAME:${{ steps.meta.outputs.meta }} .
+           run: docker build --file Dockerfile -t $REGISTRY_USER/$REPO_NAME:${{ github.event.repository.default_branch }}-${{ steps.meta.outputs.meta }} .
           
          - name: Docker push container
            run: docker push $REGISTRY_USER/$REPO_NAME:${{ steps.meta.outputs.meta }}
