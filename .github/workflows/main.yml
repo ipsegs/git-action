@@ -49,6 +49,6 @@ jobs:
           uses: benc-uk/workflow-dispatch@v1.1
           with:
              workflow: New Version
-             token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+             token: ${{ secrets.GITACTION_PAT }}
              inputs: '{"tag_name": "${{ env.TAG_NAME }}", "app_repo": "${{ github.event.repository.name }}", "image": "ipsegs/${{ env.REPO_NAME }}:${{ env.TAG_NAME }}"}'
              repo: ${{ env.ENV_REPO }}
