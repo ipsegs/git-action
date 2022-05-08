@@ -12,6 +12,10 @@ env:
 jobs:
    build-push-docker-image:
       runs-on: ubuntu-latest
+      
+      outputs:
+          output1: ${{ steps.meta.outputs.meta }}
+          
       steps: 
          - name: checkout code
            uses: actions/checkout@v3
@@ -37,7 +41,8 @@ jobs:
       needs: build-push-docker-image
       steps:
         - name: Add TAG_NAME env property
-          run:  echo "TAG_NAME=`echo ${GITHUB_REF#refs/tags/}`" >> $GITHUB_ENV
+          run:  echo "TAG_NAME=${{ github.event.repository.default_branch }}-${{ needs.build-push-docker-image.outputs.output1}}" >> $GITHUB_ENV
+        
         - name: Open PR in Environment Repository for new App Version
           env:
              ENV_REPO: ${{ github.event.repository.owner.name }}/github-env
@@ -45,6 +50,6 @@ jobs:
           with:
              workflow: New Version
              token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-             inputs: '{"tag_name": "${{ env.TAG_NAME }}", "app_repo": "${{ github.event.repository.name }}", "image": "${{ github.event.repository.full_name }}:${{ env.TAG_NAME }}"}'
+             inputs: '{"tag_name": "${{ env.TAG_NAME }}", "app_repo": "${{ github.event.repository.name }}", "image": "${{ github.event.repository.full_name }}:${{ github.event.repository.default_branch }}-${{ env.TAG_NAME }}"}'
              ref: refs/heads/main
              repo: ${{ env.ENV_REPO }}
