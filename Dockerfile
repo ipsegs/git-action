@@ -1,4 +1,4 @@
-from python:slim
+from python:3.10.4-slim-bullseye
 
 expose 5000
 
